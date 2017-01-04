@@ -1,5 +1,5 @@
 // script for maze
-var maze = initmaze(20, 10);
+var maze = initmaze(20, 20);
 generatemaze(maze);
 showmaze(maze);
 
@@ -46,11 +46,27 @@ function openmazeat(maze, td) {
     var dir = td.dir;
     var cell = maze.cells[y][x];
     cell.open = true;
-    addtodo(maze, "N", x, y-1);
-    addtodo(maze, "S", x, y+1);
-    addtodo(maze, "E", x+1, y);
-    addtodo(maze, "W", x-1, y);
-    // TODO: set south/east to false
+    addtodo(maze, "S", x    , y - 1);
+    addtodo(maze, "N", x    , y + 1);
+    addtodo(maze, "W", x + 1, y    );
+    addtodo(maze, "E", x - 1, y    );
+    // set south/east to false:
+    switch(td.dir) {
+        case "0":
+            break;
+        case "S":
+            cell.south = false;
+            break;
+        case "N":
+            maze.cells[y-1][x].south = false;
+            break;
+        case "W":
+            maze.cells[y][x-1].east = false;
+            break;
+        case "E":
+            cell.east = false;
+            break;
+    }
 }
 
 function addtodo(maze, dir, x, y) {
@@ -83,9 +99,9 @@ function initmaze(nx, ny) {
 }
 
 function logmaze(maze) {
-    var r = ".";
+    var r = " ";
     for (x=0; x<maze.nx; x++) 
-        r += "_.";    
+        r += "__";    
     for(y=0; y<maze.ny; y++) {
         r += "\n";
         var s = "|";
@@ -93,7 +109,7 @@ function logmaze(maze) {
         for (x=0; x<maze.nx; x++) {
             var cell = row[x];
             s += cell.south ? '_' : ' ';
-            s += cell.east ? '|' : '.';
+            s += cell.east ? '|' : '_';
         }
         r += s;
     }

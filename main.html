@@ -2,10 +2,31 @@
 <html>
     <head>
         <title>Maze</title>
+        <style type="text/css">
+div#maze {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
+span {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: solid thin transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.s { border-bottom: solid thin black; }
+.e { border-right:  solid thin black; }
+.n { border-top:    solid thin black; }
+.w { border-left:   solid thin black; }
+        </style>
     </head>
     <body>
         <h2>Maze</h2>
-        <pre style="font-size: 200%;" id="maze"></pre>
+        <div id="maze"></div>
     </body>
     <script src="maze.js"></script>
 </html>

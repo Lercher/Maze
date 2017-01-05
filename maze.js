@@ -1,5 +1,5 @@
 // script for maze
-var maze = initmaze(20, 20);
+var maze = initmaze(60, 30);
 generatemaze(maze);
 showmaze(maze);
 
@@ -98,6 +98,30 @@ function initmaze(nx, ny) {
     return maze;
 }
 
+function makespan(classes) {
+    const template = "<span class='x'></span>";
+    return template.replace("x", classes);
+}
+
+function spanmaze(maze) {
+    var r = "";
+    for(y=0; y<maze.ny; y++) {
+        r += "<div>";
+        var row = maze.cells[y];
+        for (x=0; x<maze.nx; x++) {
+            let s = "";
+            var cell = row[x];
+            s += (x === 0)  ? 'w ' : '';
+            s += (y === 0)  ? 'n ' : '';
+            s += cell.south ? 's ' : '';
+            s += cell.east  ? 'e ' : '';
+            r += makespan(s);
+        }
+        r += "</div>\n";
+    }
+    return r;
+}
+
 function logmaze(maze) {
     var r = " ";
     for (x=0; x<maze.nx; x++) 
@@ -117,9 +141,9 @@ function logmaze(maze) {
 }
 
 function showmaze(maze) {
-    var disp = logmaze(maze);
-    var pre = document.getElementById('maze');
-    pre.innerText = disp;
+    var spans = spanmaze(maze);
+    var div = document.getElementById('maze');
+    div.innerHTML = spans;
 }
 
 function rnd(n) {

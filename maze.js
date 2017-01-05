@@ -105,7 +105,7 @@ function makespan(classes) {
 
 function spanmaze(maze) {
     var n0 = rnd(maze.nx);
-    var nn = rnd(maze.ny);
+    var nn = rnd(maze.nx);
     var r = "";
     for(y=0; y<maze.ny; y++) {
         r += "<div>";
